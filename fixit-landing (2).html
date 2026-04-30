@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FixIt — Para autónomos que no tienen tiempo que perder</title>
+<meta name="description" content="FixIt conecta autónomos con clientes que pagan por adelantado. Sin búsqueda de clientes, sin quedar y que no estén, sin cobros complicados.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#fff;color:#1a1a1a}
+
+  /* NAV */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid #f0f0f0;background:#fff;position:sticky;top:0;z-index:100}
+  .nav-logo{font-size:24px;font-weight:600;color:#E8531A;letter-spacing:-0.5px}
+  .nav-cta{background:#E8531A;color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-block}
+  .nav-cta:hover{background:#B83D10}
+
+  /* HERO */
+  .hero{background:#1a1a1a;padding:80px 40px 72px;text-align:center}
+  .hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(232,83,26,0.15);color:#E8531A;font-size:13px;font-weight:500;padding:6px 16px;border-radius:20px;margin-bottom:26px;border:1px solid rgba(232,83,26,0.3)}
+  .badge-dot{width:7px;height:7px;border-radius:50%;background:#E8531A;display:inline-block}
+  .hero h1{font-size:42px;font-weight:600;color:#fff;line-height:1.15;margin-bottom:18px;max-width:580px;margin-left:auto;margin-right:auto}
+  .hero h1 em{color:#E8531A;font-style:normal}
+  .hero-sub{font-size:17px;color:rgba(255,255,255,0.6);max-width:440px;margin:0 auto 40px;line-height:1.65}
+  .btn-orange{background:#E8531A;color:#fff;border:none;border-radius:12px;padding:15px 32px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:inline-block;text-decoration:none}
+  .btn-orange:hover{background:#B83D10}
+  .hero-note{font-size:13px;color:rgba(255,255,255,0.35);margin-top:14px}
+
+  /* PAIN STRIP */
+  .pain{background:#E8531A}
+  .pain-inner{display:grid;grid-template-columns:1fr 1fr 1fr;max-width:960px;margin:0 auto}
+  .pain-item{padding:26px 28px;border-right:1px solid rgba(255,255,255,0.15)}
+  .pain-item:last-child{border-right:none}
+  .pain-x{font-size:20px;margin-bottom:8px}
+  .pain-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+  .pain-text{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5}
+
+  /* SECTIONS */
+  .section{padding:64px 40px;max-width:960px;margin:0 auto}
+  .section-full{padding:64px 40px}
+  .tag{font-size:11px;font-weight:600;color:#E8531A;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+  h2{font-size:32px;font-weight:600;color:#1a1a1a;margin-bottom:14px;line-height:1.2}
+  .section-sub{font-size:16px;color:#666;line-height:1.65;max-width:520px;margin-bottom:36px}
+
+  /* BEFORE AFTER */
+  .before-after{display:grid;grid-template-columns:1fr 1fr;border:1px solid #e5e5e5;border-radius:16px;overflow:hidden}
+  .ba-col{padding:28px}
+  .ba-col.before{background:#FFF5F5;border-right:1px solid #e5e5e5}
+  .ba-col.after{background:#F0FDF4}
+  .ba-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.7px;margin-bottom:18px;display:flex;align-items:center;gap:7px}
+  .ba-label.bl{color:#991B1B}
+  .ba-label.al{color:#15803D}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .ba-row{display:flex;gap:9px;margin-bottom:12px;font-size:14px;line-height:1.5;align-items:flex-start}
+  .ba-row.br{color:#7F1D1D}
+  .ba-row.ar{color:#14532D}
+
+  /* STEPS */
+  .steps-bg{background:#f8f8f8;padding:64px 40px}
+  .steps-inner{max-width:960px;margin:0 auto}
+  .steps{display:flex;flex-direction:column;gap:0}
+  .step{display:grid;grid-template-columns:56px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid #eee;align-items:flex-start}
+  .step:last-child{border-bottom:none}
+  .step-num{width:44px;height:44px;border-radius:50%;background:#E8531A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0}
+  .step-title{font-size:16px;font-weight:600;color:#1a1a1a;margin-bottom:5px}
+  .step-desc{font-size:14px;color:#666;line-height:1.6}
+  .pill{display:inline-flex;align-items:center;background:#FDF0EB;color:#993C1D;font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;margin-top:10px}
+  .pill.green{background:#F0FDF4;color:#15803D}
+
+  /* NUMBERS */
+  .numbers-bg{background:#E8531A;padding:52px 40px}
+  .numbers-grid{display:grid;grid-template-columns:repeat(3,1fr);max-width:960px;margin:0 auto}
+  .num-item{text-align:center;padding:12px;border-right:1px solid rgba(255,255,255,0.2)}
+  .num-item:last-child{border-right:none}
+  .num-big{font-size:42px;font-weight:600;color:#fff;display:block;line-height:1}
+  .num-label{font-size:14px;color:rgba(255,255,255,0.75);margin-top:8px;line-height:1.4}
+
+  /* PROFILES */
+  .profiles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .profile-card{background:#f8f8f8;border-radius:14px;padding:20px;border:1px solid #eee}
+  .profile-icon{font-size:30px;margin-bottom:10px;display:block}
+  .profile-job{font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:5px}
+  .profile-desc{font-size:13px;color:#888;line-height:1.5}
+
+  /* OBJECTIONS */
+  .obj-bg{background:#f8f8f8;padding:64px 40px}
+  .obj-inner{max-width:960px;margin:0 auto}
+  .obj-grid{display:flex;flex-direction:column}
+  .obj-item{padding:22px 0;border-bottom:1px solid #e5e5e5;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .obj-item:last-child{border-bottom:none}
+  .obj-q{font-size:15px;font-weight:600;color:#1a1a1a}
+  .obj-a{font-size:14px;color:#666;line-height:1.6}
+
+  /* FORM */
+  .form-section{padding:64px 40px;background:#fff}
+  .form-inner{max-width:640px;margin:0 auto}
+  .form-card{background:#f8f8f8;border-radius:16px;border:1px solid #eee;padding:32px}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .form-field{display:flex;flex-direction:column;gap:7px}
+  .form-label{font-size:12px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:0.5px}
+  .form-field input,.form-field select{width:100%;padding:11px 14px;border:1px solid #ddd;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;background:#fff;color:#1a1a1a;outline:none}
+  .form-field input:focus,.form-field select:focus{border-color:#E8531A}
+  .submit-btn{width:100%;background:#E8531A;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:8px}
+  .submit-btn:hover{background:#B83D10}
+  .privacy-note{font-size:12px;color:#aaa;margin-top:12px;text-align:center;line-height:1.5}
+  .success-box{display:none;background:#D1FAE5;border-radius:16px;padding:32px;text-align:center}
+  .success-box h3{font-size:20px;font-weight:600;color:#065F46;margin-bottom:8px}
+  .success-box p{font-size:14px;color:#047857;line-height:1.6}
+
+  /* FOOTER */
+  .footer{background:#111;padding:28px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .footer-logo{font-size:22px;font-weight:600;color:#E8531A}
+  .footer-copy{font-size:13px;color:#555}
+
+  /* RESPONSIVE */
+  @media(max-width:700px){
+    .nav{padding:14px 20px}
+    .nav-logo{font-size:20px}
+    .hero{padding:52px 20px 48px}
+    .hero h1{font-size:28px}
+    .hero-sub{font-size:15px}
+    .pain-inner{grid-template-columns:1fr}
+    .pain-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.15);padding:18px 20px}
+    .pain-item:last-child{border-bottom:none}
+    .section{padding:48px 20px}
+    .section-full{padding:48px 20px}
+    .before-after{grid-template-columns:1fr}
+    .ba-col.before{border-right:none;border-bottom:1px solid #e5e5e5}
+    .steps-bg{padding:48px 20px}
+    .numbers-bg{padding:40px 20px}
+    .numbers-grid{grid-template-columns:1fr}
+    .num-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.2);padding:16px 0}
+    .num-item:last-child{border-bottom:none}
+    .profiles-grid{grid-template-columns:1fr 1fr}
+    .obj-bg{padding:48px 20px}
+    .obj-item{grid-template-columns:1fr}
+    .form-section{padding:48px 20px}
+    .form-card{padding:20px}
+    .form-grid{grid-template-columns:1fr}
+    .footer{padding:24px 20px;flex-direction:column;text-align:center}
+    h2{font-size:26px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">FixIt</div>
+  <a class="nav-cta" href="#form">Quiero unirme como autónomo</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="badge-dot"></span>Para autónomos de servicios del hogar</div>
+  <h1>Deja de perder tiempo buscando clientes. <em>FixIt te los trae ya pagados.</em></h1>
+  <p class="hero-sub">Sin llamadas, sin presupuestos que no contestan, sin quedar y que no estén. El cliente paga antes de que vayas. Tú solo apareces y trabajas.</p>
+  <a class="btn-orange" href="#form">Quiero unirme gratis</a>
+  <p class="hero-note">Sin cuotas mensuales. Solo pagas cuando ganas.</p>
+</div>
+
+<!-- PAIN STRIP -->
+<div class="pain">
+  <div class="pain-inner">
+    <div class="pain-item">
+      <div class="pain-x">⏳</div>
+      <div class="pain-title">Horas perdidas</div>
+      <div class="pain-text">Llamadas, WhatsApps, presupuestos que nunca contestan</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-x">🚗</div>
+      <div class="pain-title">Desplazamientos en vano</div>
+      <div class="pain-text">Llegas y el cliente no está, o cancela en el último momento</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-x">💸</div>
+      <div class="pain-title">Cobros complicados</div>
+      <div class="pain-text">Efectivo, transferencias que tardan, clientes que regatean al final</div>
+    </div>
+  </div>
+</div>
+
+<!-- BEFORE AFTER -->
+<div style="background:#fff;padding:64px 40px">
+<div style="max-width:960px;margin:0 auto">
+  <div class="tag">El antes y el después</div>
+  <h2>Así cambia tu día a día con FixIt</h2>
+  <p class="section-sub">No tienes que cambiar cómo trabajas. Solo dejas de hacer todo lo que no te pagan.</p>
+  <div class="before-after">
+    <div class="ba-col before">
+      <div class="ba-label bl"><div class="dot" style="background:#E24B4A"></div>Sin FixIt</div>
+      <div class="ba-row br"><span>✕</span><span>Buscas clientes tú solo — boca a boca, anuncios, grupos</span></div>
+      <div class="ba-row br"><span>✕</span><span>Mandas presupuesto y esperas días sin respuesta</span></div>
+      <div class="ba-row br"><span>✕</span><span>Quedas, te desplazas y el cliente no aparece</span></div>
+      <div class="ba-row br"><span>✕</span><span>Cobras en efectivo o persigues transferencias</span></div>
+      <div class="ba-row br"><span>✕</span><span>Un día sin trabajo = un día sin ingresos</span></div>
+    </div>
+    <div class="ba-col after">
+      <div class="ba-label al"><div class="dot" style="background:#639922"></div>Con FixIt</div>
+      <div class="ba-row ar"><span>✓</span><span>Los clientes te encuentran a ti — sin esfuerzo</span></div>
+      <div class="ba-row ar"><span>✓</span><span>Ves la solicitud, mandas precio y se acepta al momento</span></div>
+      <div class="ba-row ar"><span>✓</span><span>La cita está confirmada — el cliente ya pagó</span></div>
+      <div class="ba-row ar"><span>✓</span><span>Cobras automáticamente al terminar el trabajo</span></div>
+      <div class="ba-row ar"><span>✓</span><span>Tu agenda llena, sin perder tiempo en gestiones</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- STEPS -->
+<div class="steps-bg">
+  <div class="steps-inner">
+    <div class="tag">Cómo funciona para ti</div>
+    <h2>Cuatro pasos, cero pérdida de tiempo</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Te registras y defines tus servicios</div>
+          <div class="step-desc">Indicas tu especialidad, tu zona y tu disponibilidad. Tardas 10 minutos. Nosotros verificamos tu perfil y lo publicamos.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Recibes solicitudes de clientes cercanos</div>
+          <div class="step-desc">Cuando alguien en tu zona necesita tu servicio, te llega una notificación. Ves qué necesita y decides si aceptas.</div>
+          <div class="pill">Solo ves trabajos que te interesan</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Mandas tu precio y propones fecha</div>
+          <div class="step-desc">Tú fijas cuánto cobras y cuándo puedes ir. El cliente lo aprueba y paga en ese momento dentro de la app. La cita queda confirmada.</div>
+          <div class="pill green">El dinero ya está reservado antes de que salgas de casa</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Vas, trabajas y cobras automáticamente</div>
+          <div class="step-desc">Realizas el trabajo. Al finalizar, el pago se transfiere a tu cuenta. Sin efectivo, sin esperas, sin excusas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div class="numbers-bg">
+  <div class="numbers-grid">
+    <div class="num-item">
+      <span class="num-big">0 €</span>
+      <div class="num-label">Cuota mensual.<br>Pagas solo cuando ganas.</div>
+    </div>
+    <div class="num-item">
+      <span class="num-big">100%</span>
+      <div class="num-label">Clientes que pagan antes<br>de que vayas.</div>
+    </div>
+    <div class="num-item">
+      <span class="num-big">Tú</span>
+      <div class="num-label">Fijas tu precio.<br>Nadie te lo discute.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILES -->
+<div style="background:#fff;padding:64px 40px">
+<div style="max-width:960px;margin:0 auto">
+  <div class="tag">¿Para quién es FixIt?</div>
+  <h2>Si arreglas cosas en el hogar, esto es para ti</h2>
+  <p class="section-sub">Cualquier profesional que trabaje en hogares puede usar FixIt para llenar su agenda sin esfuerzo.</p>
+  <div class="profiles-grid">
+    <div class="profile-card"><span class="profile-icon">🔧</span><div class="profile-job">Fontanero</div><div class="profile-desc">Grifos, tuberías, cisternas, calentadores, instalaciones</div></div>
+    <div class="profile-card"><span class="profile-icon">⚡</span><div class="profile-job">Electricista</div><div class="profile-desc">Enchufes, cuadros, iluminación, instalaciones eléctricas</div></div>
+    <div class="profile-card"><span class="profile-icon">❄️</span><div class="profile-job">Técnico climatización</div><div class="profile-desc">Aire acondicionado, calderas, ventilación, calefacción</div></div>
+    <div class="profile-card"><span class="profile-icon">🫧</span><div class="profile-job">Técnico electrodomésticos</div><div class="profile-desc">Lavadoras, neveras, lavavajillas, hornos, secadoras</div></div>
+    <div class="profile-card"><span class="profile-icon">📺</span><div class="profile-job">Técnico electrónica</div><div class="profile-desc">Televisores, equipos de sonido, domótica, antenas</div></div>
+    <div class="profile-card"><span class="profile-icon">🪟</span><div class="profile-job">Persianas y carpintería</div><div class="profile-desc">Persianas, puertas, ventanas, armarios, muebles</div></div>
+  </div>
+</div>
+</div>
+
+<!-- OBJECTIONS -->
+<div class="obj-bg">
+  <div class="obj-inner">
+    <div class="tag">Tus dudas, resueltas</div>
+    <h2>Preguntas frecuentes</h2>
+    <div class="obj-grid">
+      <div class="obj-item">
+        <div class="obj-q">¿Cuánto me cobra FixIt por cada trabajo?</div>
+        <div class="obj-a">Solo una pequeña comisión sobre el trabajo realizado — sin cuotas fijas mensuales. Si no trabajas, no pagas nada. La comisión exacta se comunicará antes del lanzamiento.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q">¿Qué pasa si el cliente cancela después de pagar?</div>
+        <div class="obj-a">Como el cliente paga antes de que vayas, si cancela con menos de 24 horas de antelación tú conservas una compensación por el desplazamiento. No te quedas sin nada.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q">¿Tengo que aceptar todos los trabajos que lleguen?</div>
+        <div class="obj-a">No. Tú decides qué solicitudes aceptas y cuáles no. También controlas tu disponibilidad — puedes activar y desactivar tu perfil cuando quieras.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q">¿Cuándo recibo el dinero en mi cuenta?</div>
+        <div class="obj-a">El pago se procesa automáticamente al confirmar que el trabajo está hecho. No hay esperas, no hay que perseguir a nadie. El dinero llega solo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-section" id="form">
+  <div class="form-inner">
+    <div class="tag">Únete ahora</div>
+    <h2>Sé de los primeros autónomos en FixIt</h2>
+    <p style="font-size:15px;color:#666;margin-bottom:28px;line-height:1.6">Lanzamos en Barcelona. Los primeros en registrarse tendrán perfil destacado y condiciones especiales durante los primeros 6 meses. Apúntate gratis ahora.</p>
+    <div class="form-card" id="form-wrap">
+      <div class="form-grid">
+        <div class="form-field"><label class="form-label">Nombre</label><input type="text" placeholder="Tu nombre"></div>
+        <div class="form-field"><label class="form-label">Teléfono</label><input type="tel" placeholder="+34 600 000 000"></div>
+        <div class="form-field"><label class="form-label">Email</label><input type="email" placeholder="tu@email.com"></div>
+        <div class="form-field"><label class="form-label">Ciudad</label><input type="text" placeholder="Barcelona"></div>
+        <div class="form-field"><label class="form-label">Especialidad</label>
+          <select>
+            <option>Fontanería</option>
+            <option>Electricidad</option>
+            <option>Electrodomésticos</option>
+            <option>Climatización</option>
+            <option>Electrónica / TV</option>
+            <option>Carpintería / Persianas</option>
+            <option>Mecánica</option>
+            <option>General / Varios</option>
+          </select>
+        </div>
+        <div class="form-field"><label class="form-label">Años de experiencia</label>
+          <select>
+            <option>Menos de 2 años</option>
+            <option>2 – 5 años</option>
+            <option>5 – 10 años</option>
+            <option>Más de 10 años</option>
+          </select>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Quiero unirme como autónomo — es gratis</button>
+      <p class="privacy-note">Tus datos no se comparten con nadie. Te contactamos para verificar tu perfil antes del lanzamiento.</p>
+    </div>
+    <div class="success-box" id="success-box">
+      <h3>¡Perfecto, estás dentro!</h3>
+      <p>Te llamamos en los próximos días para completar tu perfil.<br>Bienvenido a FixIt.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">FixIt</div>
+  <div class="footer-copy">© 2025 FixIt — Hecho para autónomos que no tienen tiempo que perder</div>
+</div>
+
+<script>
+function submitForm(){
+  window.open('https://docs.google.com/forms/d/e/1FAIpQLSeMHzS9p2CFT09hLgq-NwazFYK_Fw2XLeqztYREtiiVMf0b0g/viewform', '_blank');
+}
+</script>
+</body>
+</html>
