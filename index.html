@@ -317,12 +317,12 @@
     <p style="font-size:15px;color:#666;margin-bottom:28px;line-height:1.6">Lanzamos en Barcelona. Los primeros en registrarse tendrán perfil destacado y condiciones especiales durante los primeros 6 meses. Apúntate gratis ahora.</p>
     <div class="form-card" id="form-wrap">
       <div class="form-grid">
-        <div class="form-field"><label class="form-label">Nombre</label><input type="text" placeholder="Tu nombre"></div>
-        <div class="form-field"><label class="form-label">Teléfono</label><input type="tel" placeholder="+34 600 000 000"></div>
-        <div class="form-field"><label class="form-label">Email</label><input type="email" placeholder="tu@email.com"></div>
-        <div class="form-field"><label class="form-label">Ciudad</label><input type="text" placeholder="Barcelona"></div>
+        <div class="form-field"><label class="form-label">Nombre</label><input type="text" id="f-nombre" placeholder="Tu nombre"></div>
+        <div class="form-field"><label class="form-label">Teléfono</label><input type="tel" id="f-telefono" placeholder="+34 600 000 000"></div>
+        <div class="form-field"><label class="form-label">Email</label><input type="email" id="f-email" placeholder="tu@email.com"></div>
+        <div class="form-field"><label class="form-label">Ciudad</label><input type="text" id="f-ciudad" placeholder="Barcelona"></div>
         <div class="form-field"><label class="form-label">Especialidad</label>
-          <select>
+          <select id="f-especialidad">
             <option>Fontanería</option>
             <option>Electricidad</option>
             <option>Electrodomésticos</option>
@@ -334,7 +334,7 @@
           </select>
         </div>
         <div class="form-field"><label class="form-label">Años de experiencia</label>
-          <select>
+          <select id="f-experiencia">
             <option>Menos de 2 años</option>
             <option>2 – 5 años</option>
             <option>5 – 10 años</option>
@@ -342,7 +342,7 @@
           </select>
         </div>
       </div>
-      <button class="submit-btn" onclick="submitForm()">Quiero unirme como autónomo — es gratis</button>
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">Quiero unirme como autónomo — es gratis</button>
       <p class="privacy-note">Tus datos no se comparten con nadie. Te contactamos para verificar tu perfil antes del lanzamiento.</p>
     </div>
     <div class="success-box" id="success-box">
@@ -359,8 +359,41 @@
 </div>
 
 <script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtflRpsrxGQOtCTYQLwHMHYF4QEyL5JoXdL0e4qEDV9JI1B-gc-UzpPNDx2-rDcbxjtA/exec';
+
 function submitForm(){
-  window.open('https://docs.google.com/forms/d/e/1FAIpQLSeMHzS9p2CFT09hLgq-NwazFYK_Fw2XLeqztYREtiiVMf0b0g/viewform', '_blank');
+  var nombre       = document.getElementById('f-nombre').value.trim();
+  var telefono     = document.getElementById('f-telefono').value.trim();
+  var email        = document.getElementById('f-email').value.trim();
+  var ciudad       = document.getElementById('f-ciudad').value.trim();
+  var especialidad = document.getElementById('f-especialidad').value;
+  var experiencia  = document.getElementById('f-experiencia').value;
+
+  if(!nombre || !telefono || !email || !ciudad){
+    alert('Por favor rellena todos los campos obligatorios.');
+    return;
+  }
+
+  var btn = document.getElementById('submit-btn');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, telefono, email, ciudad, especialidad, experiencia })
+  })
+  .then(function(){
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('success-box').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('form').offsetTop, behavior: 'smooth' });
+  })
+  .catch(function(){
+    alert('Ha habido un error. Por favor inténtalo de nuevo.');
+    btn.textContent = 'Quiero unirme como autónomo — es gratis';
+    btn.disabled = false;
+  });
 }
 </script>
 </body>
